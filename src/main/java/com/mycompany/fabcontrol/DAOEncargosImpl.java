@@ -16,7 +16,7 @@ public class DAOEncargosImpl extends Conexion implements DAOEncargos {
     public void registrar(Encargos encargos) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO encargos(id_usuario, id_mueble, cantidad, date_out) VALUES(?,?,?,?);");
+            PreparedStatement st = this.conexion.prepareStatement("call registrarEncargos(?,?,?,?);");
             st.setInt(1, encargos.getId_usuario());
             st.setInt(2, encargos.getId_mueble());
             st.setInt(3, encargos.getCantidad());
@@ -34,7 +34,7 @@ public class DAOEncargosImpl extends Conexion implements DAOEncargos {
     public void modificar(Encargos encargos) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("UPDATE encargos SET id_usuario = ?, id_mueble = ?, cantidad = ?, date_out = ?, date_return = ? WHERE id = ?");
+            PreparedStatement st = this.conexion.prepareStatement("call modificarEncargos(?,?,?,?,?,?);");
             st.setInt(1, encargos.getId_usuario());
             st.setInt(2, encargos.getId_mueble());
             st.setInt(3, encargos.getCantidad());
@@ -56,7 +56,7 @@ public class DAOEncargosImpl extends Conexion implements DAOEncargos {
         
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("SELECT * FROM encargos WHERE id_usuario = ? AND id_mueble = ? AND date_return IS NULL ORDER BY id DESC LIMIT 1");
+            PreparedStatement st = this.conexion.prepareStatement("call getEncargos(?,?);");
             st.setInt(1, usuarios.getId());
             st.setInt(2, muebles.getId());
             

@@ -14,7 +14,7 @@ public class DAOUsuariosImpl extends Conexion implements DAOUsuarios {
     public void registrar(Usuarios usuarios) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO usuarios(nombre, apellido_paterno, apellido_materno, domicilio, tel) VALUES(?,?,?,?,?);");
+            PreparedStatement st = this.conexion.prepareStatement("call registrarUsuarios(?,?,?,?,?)");
             st.setString(1, usuarios.getNombre());
             st.setString(2, usuarios.getApellido_p());
             st.setString(3, usuarios.getApellido_m());
@@ -33,7 +33,7 @@ public class DAOUsuariosImpl extends Conexion implements DAOUsuarios {
     public void modificar(Usuarios usuarios) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("UPDATE usuarios SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, domicilio = ?, tel = ? WHERE id = ?");
+            PreparedStatement st = this.conexion.prepareStatement("call modificarUsuarios(?,?,?,?,?,?)");
             st.setString(1, usuarios.getNombre());
             st.setString(2, usuarios.getApellido_p());
             st.setString(3, usuarios.getApellido_m());
@@ -53,7 +53,7 @@ public class DAOUsuariosImpl extends Conexion implements DAOUsuarios {
     public void eliminar(int id_usuario) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("DELETE FROM usuarios WHERE id = ?;");
+            PreparedStatement st = this.conexion.prepareStatement("call eliminarUsuarios(?)");
             st.setInt(1, id_usuario);
             st.executeUpdate();
             st.close();

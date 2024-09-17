@@ -14,7 +14,7 @@ public class DAOMueblesImpl extends Conexion implements DAOMuebles {
     public void registrar(Muebles muebles) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO muebles(nombre, tipo, material, color, dimensiones, peso, precio, stock, disponibles, encargados) VALUES(?,?,?,?,?,?,?,?,?,?);");
+            PreparedStatement st = this.conexion.prepareStatement("call registrarMuebles(?,?,?,?,?,?,?,?,?,?);");
             st.setString(1, muebles.getNombre());
             st.setString(2, muebles.getTipo());
             st.setString(3, muebles.getMaterial());
@@ -38,7 +38,7 @@ public class DAOMueblesImpl extends Conexion implements DAOMuebles {
     public void modificar(Muebles muebles) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("UPDATE muebles SET nombre = ?, tipo = ?, material = ?, color = ?, dimensiones = ?, peso = ?, precio = ?, stock = ?, disponibles = ?, encargados = ? WHERE id = ?");
+            PreparedStatement st = this.conexion.prepareStatement("call modificarMuebles(?,?,?,?,?,?,?,?,?,?,?);");
             st.setString(1, muebles.getNombre());
             st.setString(2, muebles.getTipo());
             st.setString(3, muebles.getMaterial());
@@ -63,7 +63,7 @@ public class DAOMueblesImpl extends Conexion implements DAOMuebles {
     public void eliminar(int id_mueble) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("DELETE FROM muebles WHERE id = ?;");
+            PreparedStatement st = this.conexion.prepareStatement("call eliminarMuebles(?);");
             st.setInt(1, id_mueble);
             st.executeUpdate();
             st.close();
